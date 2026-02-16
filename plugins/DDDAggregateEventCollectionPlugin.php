@@ -22,6 +22,7 @@ use Phan\Language\UnionType;
 use Phan\PluginV3;
 use Phan\PluginV3\AnalyzeClassCapability;
 use ast\Node;
+use Phan\Language\Element\Parameter;
 
 class DDDAggregateEventCollectionPlugin extends PluginV3 implements AnalyzeClassCapability {
 
@@ -195,11 +196,15 @@ class DDDAggregateEventCollectionPlugin extends PluginV3 implements AnalyzeClass
 		}
 
 		$constructor = $class->getMethodByName( $code_base, '__construct' );
-		$uow_type = Type::fromFullyQualifiedString( self::EVENTS_UOW_FQSEN );
 
 		foreach ( $constructor->getParameterList() as $param ) {
-			if ( $param->getUnionType()->hasType( $uow_type ) ) {
-				return true;
+			foreach ( $param->getUnionType()->getTypeSet() as $type ) {
+                if (
+                    $type->isObjectWithKnownFQSEN()
+                    && (string) FullyQualifiedClassName::fromType($type) === self::EVENTS_UOW_FQSEN
+                ) {
+				    return true;
+                }
 			}
 		}
 
