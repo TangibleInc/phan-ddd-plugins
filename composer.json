@@ -1,0 +1,9 @@
+{
+  "name": "tangible/phan-ddd-plugins",
+  "description": "Phan plugins that enforce DDD domain event practices",
+  "type": "library",
+  "license": "GPL-2.0-only",
+  "require": {
+    "php": ">=8.2"
+  }
+}
