@@ -12,6 +12,10 @@ class ExtendsBaseRepository extends PersistsAggregatesRepository {
 		parent::__construct( $events );
 	}
 
+	protected function get_aggregate_class(): string {
+		return Aggregate::class;
+	}
+
 	protected function persist( Aggregate $aggregate ): void {
 		// Base class handles collect_from — no issues expected.
 	}
