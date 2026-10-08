@@ -19,4 +19,8 @@ class ExtendsBaseRepository extends PersistsAggregatesRepository {
 	protected function persist( Aggregate $aggregate ): void {
 		// Base class handles collect_from — no issues expected.
 	}
+
+	public function get_by_id( int $id ): ?Aggregate {
+		return null;
+	}
 }
